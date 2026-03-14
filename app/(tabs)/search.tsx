@@ -23,15 +23,17 @@ const Search = () => {
   }), false);
 
   useEffect(() => {
-    const querySearch = async () => {
+    // Debounce to prevent overloading requests. Still dynamically searches.
+    const timeoutId = setTimeout(async () => {
       if(searchQuery.trim()) {
         await loadMovies();
       } else {
         reset();
       }
-    }
-    querySearch();
-  },[searchQuery ])
+    },500);
+  
+    return () => clearInterval(timeoutId);
+  },[searchQuery])
 
   return (
     <View className="flex-1 bg-primary">
