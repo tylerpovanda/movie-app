@@ -86,6 +86,15 @@ const Search = () => {
             )}
           </>
         }
+        ListEmptyComponent={
+          !loading && !error ? (
+            <View >
+              <Text className="text-white">
+                {searchQuery ? "No results found." : "Search for a movie."}
+              </Text>
+            </View>
+          ) : null
+        }
       />
     </View>
   );
