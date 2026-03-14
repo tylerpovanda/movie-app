@@ -4,7 +4,7 @@ import { Image, Text, TextInput, View } from "react-native";
 
 interface SearchBarProps {
   placeholder: string,
-  onPress: ()=>void,
+  onPress?: ()=>void,
 }
 
 const SearchBar = ({ placeholder, onPress }: SearchBarProps) => {

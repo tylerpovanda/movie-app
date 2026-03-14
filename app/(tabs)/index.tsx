@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 import { useRouter } from "expo-router";
 import { fetchMovies } from "../services/api";
 import useFetch from "../services/useFetch";
-import MovieCard from "../components/moviecard";
+import MovieCard from "../components/MovieCard";
 
 export default function Index() {
   const router = useRouter();
