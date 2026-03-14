@@ -1,5 +1,5 @@
 import { images } from "@/constants/images";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Image, View, FlatList, ActivityIndicator } from "react-native";
 import MovieCard from "../components/MovieCard";
 import { useRouter } from "expo-router";
@@ -15,8 +15,23 @@ const Search = () => {
   const { 
     data: movies, 
     loading: loading, 
-    error: error 
-  } = useFetch(()=>fetchMovies({ query: searchQuery}), false);
+    error: error,
+    refetch: loadMovies,
+    reset
+  } = useFetch(()=>fetchMovies({ 
+    query: searchQuery
+  }), false);
+
+  useEffect(() => {
+    const querySearch = async () => {
+      if(searchQuery.trim()) {
+        await loadMovies();
+      } else {
+        reset();
+      }
+    }
+    querySearch();
+  },[searchQuery ])
 
   return (
     <View className="flex-1 bg-primary">
@@ -61,7 +76,7 @@ const Search = () => {
               <Text className="text-red-500 px-5 my-3">Error: {error.message}</Text>
             )}
 
-            {!loading && !error && "searchQuery".trim() && movies?.length > 0 && (
+            {!loading && !error && searchQuery.trim() && movies?.length > 0 && (
               <Text className="text-white text-xl font-bold">
                 Search Results for{" "}
                 <Text className="text-accent">{searchQuery}</Text>
